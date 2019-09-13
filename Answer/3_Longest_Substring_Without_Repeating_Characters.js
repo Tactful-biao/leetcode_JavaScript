@@ -24,7 +24,7 @@ Explanation: The answer is "wke", with the length of 3.
  * @return {number}
  */
 
-// 方法一 
+// 方法一 ： 简单粗暴法
 // 不推荐，当字符串十分长的时候，效率极低。
 var lengthOfLongestSubstring = function(s) {
     let 
@@ -46,7 +46,33 @@ var lengthOfLongestSubstring = function(s) {
 
 };
 
-// 方法二 
+
+// 方法二： 核心思想于方法三相同，只是方法三使用索引方式进行遍历，方法二使用循环方式。 在python中该方法速度较快
+var lengthOfLongestSubstring2 = function(s) {
+	let maxLength = 0,
+		maxString = '';
+	for (let i in s){
+		if (maxString.indexOf(s[i]) >= 0) {
+			while(true) {
+				if (maxString[0] == s[i]) {
+					maxString = maxString.slice(1,);
+					maxString += s[i];
+					break;
+				} else {
+					maxString = maxString.slice(1,);
+				}
+			}
+		} else {
+			maxString += s[i];
+		}
+		if (maxString.length > maxLength) {
+			maxLength = maxString.length;
+		}
+	}
+	return maxLength;
+}
+
+// 方法三 
 // 速度较快
 // 通过循环遍历每一个字符
 // 把字符添加到maxSring上
@@ -55,7 +81,7 @@ var lengthOfLongestSubstring = function(s) {
 // 把从重复字符开始到当前位置i的所有字符赋值给maxString
 // 判断maxString的长度和maxLength谁大，把大的赋值给maxString
 // 继续查找，重复上面步骤
-var lengthOfLongestSubstring2 = function(s) {
+var lengthOfLongestSubstring3 = function(s) {
 	let maxString = '';
 	let maxLength = 0;
 	let lastMatchedIndex = 0;
@@ -70,9 +96,10 @@ var lengthOfLongestSubstring2 = function(s) {
 			maxLength = maxString.length;
 		}
 	}
+	console.log(maxLength)
 	return maxLength;
 };
 
-let str = ' ';
 
-lengthOfLongestSubstring2(str);
+let str = 'abcdgrmklgregvsdlkhsdkfja,.#@%#^I&*';
+lengthOfLongestSubstring3(str);
